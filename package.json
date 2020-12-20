@@ -1,0 +1,28 @@
+{
+  "name": "cinema-hall-server",
+  "version": "1.0.0",
+  "description": "\"# cinema-hall-server\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArzuAshik/cinema-hall-server.git"
+  },
+  "author": "AR Arzu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArzuAshik/cinema-hall-server/issues"
+  },
+  "homepage": "https://github.com/ArzuAshik/cinema-hall-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.3",
+    "nodemon": "^2.0.6"
+  }
+}
