@@ -55,7 +55,8 @@ client.connect(() => {
   //==================== All API =========================
   app.post("/movies", (req, res) => {
       const {date} = req.body;
-      movieCollection.find({date})
+      const day = date.split(" ")[0];
+      movieCollection.find({date: day})
         .toArray((err, movies) => {
             res.send(movies);
         })
