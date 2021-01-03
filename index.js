@@ -68,27 +68,30 @@ client.connect(() => {
         .then(movie => res.send(movie));
   })
   app.get("/booking-info", (req, res) => {
-        const {movieID, time} = req.query;
-        bookingsCollection.findOne({movieID, time})
+        const {movieID, showDate, time} = req.query;
+        bookingsCollection.findOne({movieID, showDate, time})
         .then(data => res.send(data || {bookedSeats: []}))
   })
   app.post("/confirm-booking", (req, res) => {
-    const {movieID, movieTitle, email, showDate, time, bookedSeats, selectedSeats, availableSeats} = req.body;
+    const {movieID, showDate, time, bookedSeats, availableSeats} = req.body;
     if(availableSeats != 40){
-        bookingsCollection.updateOne({ movieID, time }, {$set: {bookedSeats}})
+        bookingsCollection.updateOne({ movieID, showDate, time }, {$set: {bookedSeats}})
         .then(result => {
-          pdf.create(pdfTemplate(email, movieTitle, showDate, time, selectedSeats), {}).toFile('result.pdf', (err) => {
-            res.sendFile(`${__dirname}/result.pdf`);
-          });
+          res.send("Updated");
         });
     } else{
-        bookingsCollection.insertOne({movieID, time, bookedSeats})
+        bookingsCollection.insertOne({movieID, showDate, time, bookedSeats})
         .then(result => {
-          pdf.create(pdfTemplate(email, movieTitle, showDate, time, bookedSeats), {}).toFile('result.pdf', (err) => {
-            res.sendFile(`${__dirname}/result.pdf`);
-          });
+          res.send("created");
         });
     }
+  })
+
+  app.post("/get-pdf", (req, res) => {
+    const {movieTitle, email, showDate, time, selectedSeats} = req.body;
+      pdf.create(pdfTemplate(email, movieTitle, showDate, time, selectedSeats), {}).toFile('result.pdf', (err) => {
+        res.sendFile(`${__dirname}/result.pdf`);
+      });
   })
   
 
