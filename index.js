@@ -103,6 +103,10 @@ app.get('/download-pdf', (req, res) =>{
   });
 })
 
+app.get('/', (req, res) =>{
+  res.send("hello");
+});
+
   // Listening Request
 const port = 4000;
 app.listen(process.env.PORT || port, () => {
